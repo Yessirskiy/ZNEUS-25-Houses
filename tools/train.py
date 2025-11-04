@@ -1,3 +1,4 @@
+import wandb
 import pandas as pd
 import torch
 import torch.nn as nn
@@ -99,6 +100,16 @@ def main():
         'test_loss': []
     }
 
+    run = wandb.init(
+        project="zneus_part_2",
+        config={
+            "learning_rate": LEARNING_RATE,
+            "epochs": EPOCHS,
+            "batch_size": BATCH_SIZE,
+            "model": "RegressionMLP",
+            "dataset": "Housing Dataset"
+        })
+
     for epoch in range(EPOCHS):
         model.train()
         train_loss_sum = 0.0
@@ -116,7 +127,7 @@ def main():
             
             train_loss_sum += loss.item()
             train_pbar.set_postfix(batch_loss=f"{loss.item():.6f}")
-        
+
         # 8. Val Loop 
         model.eval()
         test_loss_sum = 0.0
@@ -140,7 +151,12 @@ def main():
         print(f"Epoch [{epoch+1:02d}/{EPOCHS}] - "
               f"Train Loss (MSE): {avg_train_loss:.6f}, "
               f"Test Loss (MSE): {avg_test_loss:.6f}")
-    
+
+        wandb.log({
+            "epoch": epoch + 1,
+            "train_loss": avg_train_loss,
+            "test_loss": avg_test_loss})
+
     print("Training finished.")
 
     plot_loss_curves(history)
