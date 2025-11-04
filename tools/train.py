@@ -1,5 +1,3 @@
-# File: tools/train.py
-
 import pandas as pd
 import torch
 import torch.nn as nn
@@ -8,6 +6,8 @@ from sklearn.model_selection import train_test_split
 import sys
 import os
 from tqdm import tqdm
+
+#TODO test set (60/20/20), Loss functions (r2, MAE...),early stopping, rozne hyper/parametre, wandb, grid/random search,sweep, normalization, skip connection, bottleneck layers
 
 # Path to import from project files
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -26,7 +26,7 @@ LOG_COLS_EXCLUDE = ['latitude', 'longitude']
 MIN_MAX_COLS = ['median_house_value', 'housing_median_age']
 
 # Hyperparameters
-TEST_SIZE = 0.2
+TEST_SIZE = 0.2 # %
 BATCH_SIZE = 64
 LEARNING_RATE = 0.001
 EPOCHS = 50
