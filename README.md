@@ -7,6 +7,9 @@ This project provides a modular PyTorch pipeline for regression tasks, demonstra
 
 ---
 
+## Documentation
+The wandb experiments are present as Experiments-1 and Experiments-2. There are doc-strings in the .ipynb and python are also present.
+
 ## Project Structure
 
 The project follows a modular structure to separate concerns:
